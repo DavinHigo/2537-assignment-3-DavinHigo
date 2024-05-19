@@ -3,32 +3,46 @@ const fetch = require('node-fetch');
 const app = express();
 const port = 2537;
 
-// Serve static files from the public directory
+// Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-// Set the view engine to EJS
+// Set EJS as the view engine
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views'); // Specify the directory for views
 
-// Route to render the index page
+// Route to fetch Pokemon data with pagination and render index.ejs
 app.get('/', async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const offset = (page - 1) * limit;
+
   try {
-    // Fetch list of Pokemon from PokeAPI
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=3002');
-    if (!response.ok) {
-      throw new Error('Failed to fetch Pokemon');
-    }
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
     const data = await response.json();
-    const pokemonList = data.results;
     
-    // Render the index page with the list of Pokemon
-    res.render('index', { pokemonList });
+    const totalCount = await getTotalPokemonCount(); // Fetch total count of Pokemon
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.render('index', { pokemonList: data.results, page, totalPages }); // Pass totalPages to index.ejs
   } catch (error) {
-    console.error('Error fetching Pokemon:', error);
-    res.status(500).send('Error fetching Pokemon');
+    console.error('Error fetching Pokemon data:', error);
+    res.status(500).json({ error: 'Failed to fetch Pokemon data' });
   }
 });
 
+// Function to get total count of Pokemon
+const getTotalPokemonCount = async () => {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1`);
+    const data = await response.json();
+    return data.count;
+  } catch (error) {
+    console.error('Error fetching total Pokemon count:', error);
+    return 0;
+  }
+};
+
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
