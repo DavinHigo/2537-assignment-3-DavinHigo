@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon List</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Pokemon List</h1>
+
+  <form id="filterForm">
+    <div class="checkbox-rows">
+      <% ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'stellar', 'unknown'].forEach(function(type) { %>
+        <div class="checkbox-row">
+          <input type="checkbox" name="type" value="<%= type %>" id="<%= type %>">
+          <label for="<%= type %>"><%= type.charAt(0).toUpperCase() + type.slice(1) %></label>
+        </div>
+      <% }); %>
+    </div>
+  </form>
+
+  <ul id="pokemonList">
+    <% pokemonList.forEach(function(pokemon) { %>
+      <li><%= pokemon.name %></li>
+    <% }); %>
+  </ul>
+
+  <script src="/script.js"></script>
+</body>
+</html>
