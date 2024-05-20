@@ -19,21 +19,6 @@ app.use(express.json());
 // Middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));
 
-// Define the path to your EJS template and the output HTML file
-const templatePath = path.join(__dirname, 'views', 'index.ejs');
-const outputPath = path.join(__dirname, 'public', 'index.html');
-
-// Render the EJS template to HTML
-ejs.renderFile(templatePath, {}, (err, str) => {
-  if (err) {
-    console.error('Error rendering EJS template:', err);
-    process.exit(1);
-  }
-
-  // Write the rendered HTML to the output file
-  fs.writeFileSync(outputPath, str);
-  console.log('EJS template rendered to HTML successfully');
-});
 
 // Functions to fetch Pokémon data
 // Function to get Pokémon ID by name from the PokeAPI
