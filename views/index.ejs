@@ -13,18 +13,24 @@
     <div class="checkbox-rows">
       <% ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'stellar', 'unknown'].forEach(function(type) { %>
         <div class="checkbox-row">
-          <input type="checkbox" name="type" value="<%= type %>" id="<%= type %>">
+          <input type="checkbox" class="pokemon-checkbox" name="type" value="<%= type %>" id="<%= type %>">
           <label for="<%= type %>"><%= type.charAt(0).toUpperCase() + type.slice(1) %></label>
         </div>
       <% }); %>
     </div>
   </form>
 
-  <ul id="pokemonList">
-    <% pokemonList.forEach(function(pokemon) { %>
-      <li><%= pokemon.name %></li>
-    <% }); %>
-  </ul>
+  <div id="filtered-results" class="pokemon-grid">
+    <!-- Pokemon cards will be dynamically inserted here -->
+  </div>
+
+  <div id="pagination">
+  <button id="prev" class="btn btn-primary">Prev</button>
+  <!-- Placeholder for dynamically generated page buttons -->
+  <!-- Example: Buttons for pages will be dynamically inserted here -->
+  <button id="next" class="btn btn-primary ml-1">Next</button>
+</div>
+
 
   <script src="/script.js"></script>
 </body>
