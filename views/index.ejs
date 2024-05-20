@@ -7,52 +7,58 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Pokemon List</h1>
 
-  <form id="filterForm">
-    <div class="checkbox-rows">
-      <% ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'stellar', 'unknown'].forEach(function(type) { %>
-        <div class="checkbox-row">
-          <input type="checkbox" class="pokemon-checkbox" name="type" value="<%= type %>" id="<%= type %>">
-          <label for="<%= type %>"><%= type.charAt(0).toUpperCase() + type.slice(1) %></label>
-        </div>
-      <% }); %>
-    </div>
-  </form>
-
-  <h3>Showing 10 of y pokemon</h3>
-  <div id="filtered-results" class="pokemon-grid">
-    <!-- Pokemon cards will be dynamically inserted here -->
-    <% pokemonList.forEach(function(pokemonData) { %>
-      <div class="pokeCard card">
-        <h3><%= pokemonData.name.toUpperCase() %></h3>
-        <img src="<%= pokemonData.imageUrl %>" alt="<%= pokemonData.name %>">
-        <button type="button" class="btn btn-primary open-modal" data-name="<%= pokemonData.name %>" data-image="<%= pokemonData.imageUrl %>">More</button>
+<!-- Form to select Pokémon types -->
+<form id="filterForm">
+  <div class="checkbox-rows">
+    <% ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'stellar', 'unknown'].forEach(function(type) { %>
+      <div class="checkbox-row">
+        <input type="checkbox" class="pokemon-checkbox" name="type" value="<%= type %>" id="<%= type %>" <% if (req.params.type1 === type || req.params.type2 === type) { %>checked<% } %>>
+        <label for="<%= type %>"><%= type.charAt(0).toUpperCase() + type.slice(1) %></label>
       </div>
     <% }); %>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="pokeModal" tabindex="-1" role="dialog" aria-labelledby="pokeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pokeModalLabel">Pokemon Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p id="pokeDetails">Loading...</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <button type="button" onclick="submitForm()">Filter Pokémon</button>
+</form>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/script.js"></script>
+<!-- Display Pokémon names -->
+<% if (pokemonNames && pokemonNames.length > 0) { %>
+  <h2>Filtered Pokémon:</h2>
+  <ul>
+    <% pokemonNames.forEach(name => { %>
+      <li><%= name %></li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>No Pokémon found.</p>
+<% } %>
+
+<script>
+  // JavaScript to handle form submission
+  function submitForm() {
+    const checkboxes = document.querySelectorAll('.pokemon-checkbox:checked');
+    const selectedTypes = Array.from(checkboxes).map(cb => cb.value);
+
+    if (selectedTypes.length === 0) {
+      alert('Please select at least one type.');
+      return;
+    }
+
+    if (selectedTypes.length > 2) {
+      alert('Please select up to 2 types.');
+      return;
+    }
+
+    // Build the URL based on selected types
+    let typeUrl = '/pokemon/' + selectedTypes[0];
+    if (selectedTypes.length > 1) {
+      typeUrl += '/' + selectedTypes[1];
+    }
+
+    window.location.href = typeUrl;
+  }
+</script>
+
 </body>
 </html>
