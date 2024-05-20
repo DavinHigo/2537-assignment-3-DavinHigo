@@ -7,7 +7,7 @@
     <title>Pokémon List</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <style>
         .pokemon-card {
             margin-bottom: 20px;
@@ -37,9 +37,9 @@
 
     <!-- Display total number of Pokémon -->
     <div>
-        <% if (totalPokemonCount===0) { %>
+        <% if (totalPokemonCount === 0) { %>
             <p>No Pokémon found.</p>
-            <% } else if (selectedTypes.length===0) { %>
+            <% } else if (selectedTypes.length === 0) { %>
                 <p>Showing 10 of <%= totalPokemonCount %>
                 </p>
                 <% } else { %>
@@ -49,8 +49,8 @@
     </div>
 
     <div class="pokemon-container">
-        <% if (pokemonData && pokemonData.length> 0) { %>
-            <% pokemonData.forEach(pokemon=> { %>
+        <% if (pokemonData && pokemonData.length > 0) { %>
+            <% pokemonData.forEach(pokemon => { %>
                 <div class="pokemon-card">
                     <h3>
                         <%= pokemon.name %>
@@ -90,24 +90,21 @@
     </div>
 
 
-    <!-- Pagination Controls -->
-    <div class="pagination" id="pagination">
-        <% if (hasPreviousPage) { %>
-            <a href="?page=<%= currentPage - 1 %>" class="btn pagination-btn prev">Prev</a>
-        <% } else { %>
-            <button class="btn pagination-btn prev disabled">Prev</button>
-        <% } %>
+<!-- Pagination Controls -->
+<div class="pagination" id="pagination">
+    <% if (hasPreviousPage) { %>
+        <a href="?page=<%= currentPage - 1 %>" class="btn pagination-btn prev">Prev</a>
+    <% } %>
 
-        <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
-            <a href="?page=<%= i %>" class="btn pagination-btn <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
-        <% } %>
+    <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
+        <a href="?page=<%= i %>" class="btn pagination-btn <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+    <% } %>
 
-        <% if (hasNextPage) { %>
-            <a href="?page=<%= currentPage + 1 %>" class="btn pagination-btn next">Next</a>
-        <% } else { %>
-            <button class="btn pagination-btn next disabled">Next</button>
-        <% } %>
-    </div>
+    <% if (hasNextPage) { %>
+        <a href="?page=<%= currentPage + 1 %>" class="btn pagination-btn next">Next</a>
+    <% } %>
+</div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
