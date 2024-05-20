@@ -2,7 +2,7 @@
   "name": "your-project",
   "version": "1.0.0",
   "scripts": {
-    "render": "node render.js",
+    "render": "node index.js",
     "build": "npm run render"
   },
 
