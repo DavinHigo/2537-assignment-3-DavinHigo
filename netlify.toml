@@ -1,9 +1,8 @@
 [build]
-  # Install dependencies before building
-  command = "npm install"
-  
-  # Run the Node.js application
-  command = "node index.js"
-  
-  # Directory to publish (optional if your app doesn't produce static files)
-  publish = "public"  # Replace with your actual publish directory if needed
+  command = "npm run build"
+  publish = "public"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
