@@ -11,31 +11,52 @@
 <!-- Form to select Pokémon types -->
 <form id="filterForm">
   <div class="checkbox-rows">
-    <% ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'stellar', 'unknown'].forEach(function(type) { %>
+    <% types.forEach(function(type) { %>
       <div class="checkbox-row">
-        <input type="checkbox" class="pokemon-checkbox" name="type" value="<%= type %>" id="<%= type %>" <% if (req.params.type1 === type || req.params.type2 === type) { %>checked<% } %>>
+        <input type="checkbox" class="pokemon-checkbox" name="type" value="<%= type %>" id="<%= type %>"
+          <% if (selectedTypes && selectedTypes.includes(type)) { %> checked <% } %>>
         <label for="<%= type %>"><%= type.charAt(0).toUpperCase() + type.slice(1) %></label>
       </div>
     <% }); %>
   </div>
-
   <button type="button" onclick="submitForm()">Filter Pokémon</button>
 </form>
 
-<!-- Display Pokémon names -->
-<% if (pokemonNames && pokemonNames.length > 0) { %>
-  <h2>Filtered Pokémon:</h2>
-  <ul>
-    <% pokemonNames.forEach(name => { %>
-      <li><%= name %></li>
+<!-- Display Pokémon as cards -->
+<div class="pokemon-container">
+  <% if (pokemonData && pokemonData.length > 0) { %>
+    <% pokemonData.forEach(pokemon => { %>
+      <div class="pokemon-card">
+        <h3><%= pokemon.name %></h3>
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemon.id %>.png" alt="<%= pokemon.name %>" />
+        <p><a href="/pokemon/<%= pokemon.name %>">See More</a></p>
+      </div>
     <% }); %>
-  </ul>
-<% } else { %>
-  <p>No Pokémon found.</p>
-<% } %>
+  <% } else { %>
+    <p>No Pokémon found.</p>
+  <% } %>
+</div>
+
+<!-- Pagination Controls -->
+<div id="pagination">
+  <% if (hasPreviousPage) { %>
+    <a href="?page=<%= currentPage - 1 %>" class="btn">Prev</a>
+  <% } else { %>
+    <button class="btn" disabled>Prev</button>
+  <% } %>
+
+  <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
+    <a href="?page=<%= i %>" class="btn <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+  <% } %>
+
+  <% if (hasNextPage) { %>
+    <a href="?page=<%= currentPage + 1 %>" class="btn">Next</a>
+  <% } else { %>
+    <button class="btn" disabled>Next</button>
+  <% } %>
+</div>
 
 <script>
-  // JavaScript to handle form submission
   function submitForm() {
     const checkboxes = document.querySelectorAll('.pokemon-checkbox:checked');
     const selectedTypes = Array.from(checkboxes).map(cb => cb.value);
@@ -50,7 +71,6 @@
       return;
     }
 
-    // Build the URL based on selected types
     let typeUrl = '/pokemon/' + selectedTypes[0];
     if (selectedTypes.length > 1) {
       typeUrl += '/' + selectedTypes[1];
