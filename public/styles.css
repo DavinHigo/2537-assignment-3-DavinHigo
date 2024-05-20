@@ -1,35 +1,54 @@
-/* styles.css */
-
 body {
   font-family: Arial, sans-serif;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10%, 18%));
+  gap: 10px;
   padding: 20px;
 }
 
-h1 {
+.pokeCard {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
   text-align: center;
+  background-color: #f9f9f9;
+}
+
+.pokeCard img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pokeCard h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
 .checkbox-rows {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .checkbox-row {
-  display: flex;
-  align-items: center;
   margin-right: 10px;
 }
 
-input[type="checkbox"] {
-  margin-right: 5px;
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+#pagination .btn {
+  margin: 0 5px;
 }
 
-ul li {
-  margin-bottom: 5px;
+.pokemon-count {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  text-align: center;
 }
