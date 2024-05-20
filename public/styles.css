@@ -1,3 +1,4 @@
+/* Global styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -19,12 +20,20 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    width: 150px;
+    width: 18%;
 }
 
 .pokemon-card img {
     width: 100px;
     height: 100px;
+}
+
+.pokemon-name {
+    font-size: 16px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .checkbox-rows {
@@ -43,35 +52,88 @@ body {
     margin-left: 5px;
 }
 
+/* Pagination button styles */
 #pagination {
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
-}
-
-#pagination .btn {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 10px 15px;
     text-align: center;
-    text-decoration: none;
+}
+
+#pagination a.btn {
     display: inline-block;
-    font-size: 16px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
+    padding: 8px 16px;
+    margin-right: 4px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
 }
 
-#pagination .btn:hover {
+#pagination a.btn.active {
     background-color: #0056b3;
+    border-color: #0056b3;
 }
 
-#pagination .btn.active {
-    background-color: #0056b3;
-}
-
-#pagination .btn:disabled {
-    background-color: #c0c0c0;
+#pagination button.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 4px;
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    border-radius: 4px;
     cursor: not-allowed;
+}
+
+#pagination button.btn:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Modal styles */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-body img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.modal-body div {
+    margin-top: 15px;
+}
+
+.modal-body h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-body ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.modal-footer {
+    justify-content: center;
 }
