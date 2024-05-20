@@ -35,38 +35,33 @@
         <button type="button" onclick="submitForm()">Filter Pokémon</button>
     </form>
 
-    <!-- Display total number of Pokémon -->
-    <div>
-        <% if (totalPokemonCount === 0) { %>
-            <p>No Pokémon found.</p>
-            <% } else if (selectedTypes.length === 0) { %>
-                <p>Showing 10 of <%= totalPokemonCount %>
-                </p>
-                <% } else { %>
-                    <p>Showing 10 of <%= totalPokemonCount %>
-                    </p>
-                    <% } %>
-    </div>
+<!-- Display total number of Pokémon -->
+<div>
+    <% if (totalPokemonCount === 0) { %>
+        <p>No Pokémon found.</p>
+    <% } else if (selectedTypes.length === 0) { %>
+        <p>Showing <%= pokemonData.length %> of <%= totalPokemonCount %></p>
+    <% } else { %>
+        <p>Showing <%= pokemonData.length %> of <%= totalPokemonCount %></p>
+    <% } %>
+</div>
 
-    <div class="pokemon-container">
-        <% if (pokemonData && pokemonData.length > 0) { %>
-            <% pokemonData.forEach(pokemon => { %>
-                <div class="pokemon-card">
-                    <h3>
-                        <%= pokemon.name %>
-                    </h3>
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemon.id %>.png"
-                        alt="<%= pokemon.name %>" />
-                    <button class="see-more-btn btn btn-primary" data-name="<%= pokemon.name %>"
-                        data-id="<%= pokemon.id %>">
-                        See More
-                    </button>
-                </div>
-                <% }); %>
-                    <% } else { %>
-                        <p>No Pokémon found.</p>
-                        <% } %>
-    </div>
+<div class="pokemon-container">
+    <% if (pokemonData && pokemonData.length > 0) { %>
+        <% pokemonData.forEach(pokemon => { %>
+            <div class="pokemon-card">
+                <h3><%= pokemon.name %></h3>
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemon.id %>.png"
+                    alt="<%= pokemon.name %>" />
+                <button class="see-more-btn btn btn-primary" data-name="<%= pokemon.name %>"
+                    data-id="<%= pokemon.id %>">See More</button>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No Pokémon found.</p>
+    <% } %>
+</div>
+
 
     <!-- Modal structure -->
     <div class="modal fade" id="pokeModal" tabindex="-1" role="dialog" aria-labelledby="pokeModalLabel"
