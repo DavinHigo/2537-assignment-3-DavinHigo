@@ -19,7 +19,6 @@ app.use(express.json());
 // Middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));
 
-
 // Functions to fetch Pokémon data
 // Function to get Pokémon ID by name from the PokeAPI
 async function getPokemonId(name) {
@@ -175,7 +174,7 @@ app.get('/', async (req, res) => {
 });
 
 // Route to handle requests for Pokémon by types with pagination
-app.get('/pokemon/:type1?/:type2?', async (req, res) => {
+app.get('/pokemon/:type1/:type2?', async (req, res) => {
   const type1 = req.params.type1;
   const type2 = req.params.type2;
   const page = parseInt(req.query.page) || 1;

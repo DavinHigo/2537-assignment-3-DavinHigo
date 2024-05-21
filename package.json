@@ -1,13 +1,4 @@
 {
-  "name": "your-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "build": "npm install"
-  },
-
   "dependencies": {
     "axios": "^1.7.0",
     "dotenv": "^16.4.5",
